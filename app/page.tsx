@@ -18,7 +18,7 @@ const P: P[]=[
 const money=(n:number)=>"$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 type Item={id:number;qty:number};
 export default function Home(){
-const [view,V]=useState("home"),[selected,S]=useState(1),[cart,C]=useState<Item[]>([]),[drawer,D]=useState(false),[search,Q]=useState(""),[query,F]=useState(""),[cat,K]=useState("All"),[sort,T]=useState("Featured"),[price,H]=useState("all"),[likes,L]=useState<number[]>([]),[notice,N]=useState(""),[mobile,M]=useState(false),[recent,R]=useState([9,1,8,5]),[form,A]=useState({name:"",email:"",address:"",city:"",postal:""}),[placed,O]=useState(false);
+const [view,V]=useState("home"),[selected,S]=useState(1),[color,setColor]=useState(0),[cart,C]=useState<Item[]>([]),[drawer,D]=useState(false),[search,Q]=useState(""),[query,F]=useState(""),[cat,K]=useState("All"),[sort,T]=useState("Featured"),[price,H]=useState("all"),[likes,L]=useState<number[]>([]),[notice,N]=useState(""),[mobile,M]=useState(false),[recent,R]=useState([9,1,8,5]),[form,A]=useState({name:"",email:"",address:"",city:"",postal:""}),[placed,O]=useState(false);
 const item=P.find(p=>p.id===selected)||P[0],count=cart.reduce((a,b)=>a+b.qty,0),subtotal=cart.reduce((a,b)=>a+(P.find(p=>p.id===b.id)?.price||0)*b.qty,0);
 const filtered=useMemo(()=>{let a=P.filter(p=>(cat==="All"||p.cat===cat)&&p.name.toLowerCase().includes(query.toLowerCase())&&(price==="all"||p.price<=Number(price)));if(sort==="Price low to high")a.sort((x,y)=>x.price-y.price);if(sort==="Price high to low")a.sort((x,y)=>y.price-x.price);return a},[cat,query,price,sort]);
 function toast(s:string){N(s);setTimeout(()=>N(""),2200)}
